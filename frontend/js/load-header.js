@@ -14,6 +14,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (typeof renderUserArea === 'function') {
       renderUserArea();
     }
+    // Ejecutar el ocultamiento de enlaces si el script está cargado
+    if (typeof hideNavLinks === 'function') {
+      hideNavLinks();
+    } else if (window.hideNavLinks) {
+      window.hideNavLinks();
+    }
+    // Si no existe la función, intentar cargar el script manualmente
+    else {
+      var script = document.createElement('script');
+      script.src = '../js/hide-nav-links.js';
+      script.onload = function() {
+        if (typeof hideNavLinks === 'function') hideNavLinks();
+      };
+      document.body.appendChild(script);
+    }
   } catch (error) {
     console.error('Error loading header:', error);
   }

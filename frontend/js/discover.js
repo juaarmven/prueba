@@ -242,7 +242,27 @@ document.addEventListener('DOMContentLoaded', () => {
           e.preventDefault();
           const userId = localStorage.getItem('userLoggedIn');
           if (!userId) {
-            alert('Debes iniciar sesión para guardar rutas.');
+            // Mostrar mensaje visual en discover-message-container
+            const container = document.getElementById('discover-message-container');
+            if (container) {
+              container.innerHTML = '';
+              const div = document.createElement('div');
+              div.textContent = 'You must be logged in to save routes.';
+              div.style.background = '#d21e1e';
+              div.style.color = '#fff';
+              div.style.padding = '16px 32px';
+              div.style.borderRadius = '16px';
+              div.style.fontWeight = '700';
+              div.style.fontSize = '1.1rem';
+              div.style.margin = '18px auto 0 auto';
+              div.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+              div.style.transition = 'opacity 0.4s';
+              div.style.maxWidth = '400px';
+              div.style.textAlign = 'center';
+              container.appendChild(div);
+              setTimeout(() => { div.style.opacity = '0'; }, 1800);
+              setTimeout(() => { div.remove(); }, 2200);
+            }
             return;
           }
           try {
