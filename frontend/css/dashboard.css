@@ -1,0 +1,164 @@
+:root{
+  --green: #2b8a3e;
+  --green-dark: #237033;
+  --bg: #f6f7f9;
+  --text: #1f2937;
+  --card-radius: 12px;
+  --gap: 16px;
+  --max-width: 1100px;
+  --transition: 200ms ease;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:#fff;
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Main content */
+.container{
+  max-width:var(--max-width);
+  margin:28px auto;
+  padding:0 20px;
+}
+
+/* Grid layout to match la imagen:
+   - una tarjeta cuadrada a la izquierda
+   - una tarjeta grande a la derecha
+   - una tarjeta grande abajo ocupando todo el ancho
+*/
+.actions{
+  display:grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  gap:18px;
+  grid-template-areas:
+    "register discover"
+    "friends friends";
+}
+
+/* Asignar áreas */
+.action-card.register{grid-area:register}
+.action-card.discover-paths{grid-area:discover}
+.action-card.discover-friends{grid-area:friends}
+
+/* Action cards estilo */
+.action-card{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  color:#fff;
+  text-decoration:none;
+  padding:20px 22px;
+  border-radius:var(--card-radius);
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+  transition:transform var(--transition), box-shadow var(--transition);
+  min-height:96px;
+  border:1px solid black;
+  position:relative;
+  height:240px;
+}
+
+.action-card.register{
+  width:240px;
+  height:240px;
+}
+
+.action-card:hover{transform:translateY(-4px); box-shadow:0 12px 28px rgba(0,0,0,0.10)}
+
+.action-content{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-top:auto;
+}
+.action-title{font-weight:800; font-size:1.05rem; letter-spacing:0.6px}
+
+/* CTA circular arrow */
+.action-cta{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.6rem;
+  font-weight:700;
+  box-shadow:0 6px 14px rgba(0,0,0,0.08);
+  position:absolute;
+  top:20px;
+  left:20px;
+}
+
+/* Colores por tarjeta (según imagen) */
+.action-card.register{
+  background:linear-gradient(180deg, #54c242, #54c242);
+}
+.action-card.discover-paths{
+  background:linear-gradient(180deg, #7cd175, #7cd175);
+  color: black;
+}
+.action-card.discover-friends{
+  background:linear-gradient(180deg, #7cd175, #7cd175);
+  color: black;
+}
+
+/* CTA color contrast: blanco sobre verde oscuro */
+.action-card .action-cta{ background:rgba(255,255,255,0.12); color:#fff }
+
+/* Responsive rules */
+@media (max-width: 900px){
+  .actions{grid-template-columns:repeat(2,1fr)}
+}
+
+@media (max-width: 790px){
+  /* Nav colapsable */
+  .main-nav{
+    position: fixed;
+    top: 130px;
+    left:0;
+    right:0;
+    background:#ffffff;
+    flex-direction:column;
+    gap:0;
+    padding:8px 12px;
+    border-bottom:none;
+    transform-origin:top;
+    max-height:0;
+    overflow:hidden;
+    z-index:5;
+  }
+
+  .main-nav.open{
+    max-height:240px;
+    border-bottom:1px solid rgba(0,0,0,0.06);
+  }
+
+  .nav-link{
+    display:block;
+    padding:12px 10px;
+    border-radius:6px;
+  }
+
+  .nav-toggle{display:block}
+
+  .actions{
+    grid-template-columns:1fr;
+    grid-template-areas:
+      "register"
+      "discover"
+      "friends";
+  }
+
+  .action-card.register{
+    width:100%;
+    height:200px;
+  }
+
+  .site-header{padding:10px 14px}
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valorar Recorrido</title>
+  <link rel="icon" type="image/png" href="../assets/LOGO.png" />
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/path-details.css">
+  <style>
+    .rate-form-container {
+      max-width: 500px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 32px 28px 24px 28px;
+    }
+    .rate-form-container h1 {
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 1.6rem;
+      font-weight: 400;
+    }
+    .rate-form label {
+      display: block;
+      color: #43b649;
+      font-weight: 600;
+      margin-bottom: 4px;
+      font-size: 1rem;
+    }
+    .rate-form input[type="number"], .rate-form textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 18px;
+      border: 2px solid #54c242;
+      border-radius: 5px;
+      font-size: 1rem;
+      resize: vertical;
+      color: #000000;
+    }
+    .rate-form input[type="number"]::placeholder,
+    .rate-form textarea::placeholder {
+      color: #00000099;
+    }
+    .rate-form button {
+      width: 100%;
+      padding: 10px;
+      background: #54c242;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .rate-form button:hover {
+      background: #43a32e;
+    }
+
+    .rate-message {
+        margin-top: 18px;
+        text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="header-container"></div>
+  <div class="rate-form-container">
+    <h1>Valorar Recorrido</h1>
+    <form class="rate-form" id="rateForm" autocomplete="off">
+      <label for="rating">Puntuación (0-5):</label>
+      <input type="number" id="rating" name="rating" min="0" max="5" step="0.25" required>
+      <label for="comment">Comentario:</label>
+      <textarea id="comment" name="comment" rows="4" maxlength="300" placeholder="Escribe tu opinión..." required></textarea>
+      <button type="submit">Enviar valoración</button>
+    </form>
+    <div id="rate-message" class="rate-message"></div>
+
+  </div>
+  <script src="../js/load-header.js"></script>
+  <script src="../js/rate-path.js"></script>
+</body>
+</html>

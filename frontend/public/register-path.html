@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Path</title>
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/register-path.css">
+</head>
+<body>
+  <!-- Header (auto-load) -->
+  <main class="register-path-container">
+    <div class="register-path-tabs">
+      <span class="tab active">MANUAL</span>
+      <span class="tab">AUTOMATIC</span>
+    </div>
+    <form class="register-path-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Name*</label>
+          <input type="text" id="name" name="name" placeholder="Funny path" required>
+        </div>
+        <div class="form-group">
+          <label for="origin">Origin*</label>
+          <input type="text" id="origin" name="origin" required>
+        </div>
+        <div class="form-group">
+          <label for="destination">Destination*</label>
+          <input type="text" id="destination" name="destination" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group-2">
+          <label for="distance">Distance*</label>
+          <input type="number" id="distance" name="distance" step="0.01" min="0" required>
+        </div>
+        <div class="form-group-2">
+          <label for="difficulty">Difficulty*</label>
+          <select id="difficulty" name="difficulty" required>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+        </div>
+        <div class="form-group-2">
+          <label for="status">Status*</label>
+          <select id="status" name="status" required>
+            <option value="Optimal">Optimal</option>
+            <option value="Sufficient">Sufficient</option>
+            <option value="Requires maintenance">Requires maintenance</option>
+          </select>
+        </div>
+        <div class="form-group-2">
+          <label for="duration">Duration*</label>
+          <input type="time" id="duration" name="duration" step="1" required>
+        </div>
+        <div class="form-group-2">
+          <label for="elevation">ElevationGain*</label>
+          <input type="number" id="elevation" name="elevation" required>
+        </div>
+        <div class="form-group-2">
+          <label for="velocity">AverageVelocity*</label>
+          <input type="number" id="velocity" name="velocity" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group wide">
+          <label for="street-name">Street Name*</label>
+          <input type="text" id="street-name" name="street-name">
+        </div>
+        <button type="button" class="btn-add-street">Add Street</button>
+      </div>
+      <div class="form-row">
+        <div class="form-group wide">
+          <label for="route">Street Route</label>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <input type="text" id="street-route" name="route" required readonly style="flex:1;">
+            <button type="button" id="btn-remove-street" title="Eliminar último" style="background:#c0392b;color:#fff;border:none;border-radius:8px;padding:6px 12px;font-weight:700;cursor:pointer;">&larr;</button>
+          </div>
+        </div>
+        <div class="checkbox-group">
+          <label><input type="radio" name="visibility" value="public"> Public</label>
+          <label><input type="radio" name="visibility" value="private" checked> Private</label>
+        </div>
+      </div>
+      <div class="form-row image-weather-row">
+        <div class="image-upload">
+          <div class="image-circle">
+            <img src="../assets/image-placeholder.jpg" alt="Upload preview" id="image-preview">
+          </div>
+          <input type="file" id="image-upload" name="path_photo" accept="image/*" style="display:none">
+          <button type="button" class="btn-upload" id="btn-upload-image">Upload an image</button>
+        </div>
+        <div class="weather-upload">
+          <button type="button" class="btn-weather">Add Weather</button>
+        </div>
+      </div>
+      <button type="submit" class="btn-create">Create Path</button>
+    </form>
+  </main>
+  <script src="../js/load-header.js"></script>
+  <script src="../js/load-user-area.js"></script>
+  <script>
+    // Lógica para mostrar el selector de archivos y previsualizar la imagen
+    document.addEventListener('DOMContentLoaded', function() {
+      const btnUpload = document.getElementById('btn-upload-image');
+      const inputFile = document.getElementById('image-upload');
+      const imgPreview = document.getElementById('image-preview');
+      const placeholder = '../assets/image-placeholder.jpg';
+      btnUpload.addEventListener('click', function() {
+        inputFile.click();
+      });
+      inputFile.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(ev) {
+            imgPreview.src = ev.target.result;
+          };
+          reader.readAsDataURL(file);
+        } else {
+          imgPreview.src = placeholder;
+        }
+      });
+      // Si no hay imagen cargada al inicio, mostrar placeholder
+      if (!inputFile.files.length) {
+        imgPreview.src = placeholder;
+      }
+    });
+  </script>
+</body>
+  <script src="../js/register-path.js"></script>
+</body>
+<div id="register-path-message-container"></div>
+</html>

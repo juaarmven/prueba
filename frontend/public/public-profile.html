@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil Público</title>
+  <link rel="icon" type="image/png" href="../assets/LOGO.png" />
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/discover.css">
+  <link rel="stylesheet" href="../css/profile.css">
+  <link rel="stylesheet" href="../css/public-profile.css">
+</head>
+<body>
+  <!-- Header -->
+  <div id="header-container"></div>
+
+  <main class="profile-main">
+    <h1 id="profile-title" style="text-align:center;margin-top:32px;font-size:2.2rem;font-weight:400;text-transform:uppercase;letter-spacing:1px;"></h1>
+    <div id="user-paths" class="paths-gallery" style="max-width:900px;margin:0 auto;"></div>
+  </main>
+
+  <script src="../js/load-header.js"></script>
+  <script>
+    // Obtener el id del usuario de la query
+    function getUserIdFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('user');
+    }
+
+    async function loadUserProfile() {
+      const userId = getUserIdFromUrl();
+      const title = document.getElementById('profile-title');
+      if (!userId) {
+        title.textContent = 'USUARIO NO ENCONTRADO';
+        return;
+      }
+      // Obtener datos del usuario
+      let user;
+      try {
+        const res = await fetch(`/api/user/${userId}`);
+        user = await res.json();
+        if (user && user.username) {
+          title.textContent = `${user.username.toUpperCase()} PATH`;
+        } else {
+          title.textContent = 'USUARIO NO ENCONTRADO';
+        }
+      } catch {
+        title.textContent = 'USUARIO NO ENCONTRADO';
+      }
+      // Obtener rutas guardadas por el usuario logueado
+      let savedPathIds = [];
+      const loggedUserId = localStorage.getItem('userLoggedIn');
+      if (loggedUserId) {
+        try {
+          const resSaved = await fetch(`/api/userlikespath/${loggedUserId}`);
+          if (resSaved.ok) {
+            savedPathIds = await resSaved.json();
+          }
+        } catch {}
+      }
+      // Obtener rutas públicas creadas por el usuario
+      try {
+        const res = await fetch(`/api/path/public`);
+        const allPaths = await res.json();
+        const userPaths = allPaths.filter(p => String(p.created_by) === String(userId));
+        renderUserPaths(userPaths, savedPathIds);
+      } catch {
+        document.getElementById('user-paths').innerHTML = '<div style="padding:2rem;text-align:center;color:red;">Error loading user paths.</div>';
+      }
+    }
+
+    function renderUserPaths(paths, savedPathIds = []) {
+      const container = document.getElementById('user-paths');
+      container.innerHTML = '';
+      if (!paths.length) {
+        container.innerHTML = '';
+        container.style.display = 'flex';
+        container.style.justifyContent = 'center';
+        container.style.alignItems = 'center';
+        container.style.minHeight = '220px';
+        const msg = document.createElement('span');
+        msg.textContent = "OOPS! This user hasn't published a path yet";
+        msg.style.fontSize = '1.2rem';
+        msg.style.color = '#888';
+        msg.style.letterSpacing = '1px';
+        msg.style.textAlign = 'center';
+        container.appendChild(msg);
+        return;
+      }
+      // Reset container style si hay paths
+      container.style.display = '';
+      container.style.justifyContent = '';
+      container.style.alignItems = '';
+      container.style.minHeight = '';
+      paths.forEach(path => {
+        const card = document.createElement('div');
+        card.className = 'path-card';
+        card.innerHTML = `
+          <div style="position: relative;">
+            <button class="save-path-btn">Save</button>
+            <div class="path-image">
+              <img src="${path.path_photo ? path.path_photo : '../assets/ejemplo.jpg'}" alt="Imagen de la ruta" />
+            </div>
+            <div class="path-card-text">
+              <div class="path-name">${(path.origin && path.end) ? `${path.origin} - ${path.end}` : (path.name || 'Ruta sin nombre')}</div>
+              <div class="path-author">${path.difficulty ? 'Difficulty: ' + path.difficulty : ''}</div>
+              <div class="path-author">${path.distance ? 'Distance: ' + path.distance + ' km' : ''}</div>
+              <div class="path-author">${path.duration ? 'Duration: ' + path.duration : ''}</div>
+            </div>
+          </div>
+        `;
+        const saveBtn = card.querySelector('.save-path-btn');
+        if (savedPathIds.includes && savedPathIds.includes(path.id)) {
+          saveBtn.textContent = 'Saved!';
+          saveBtn.disabled = true;
+          saveBtn.style.background = '#43b649';
+        } else {
+          saveBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const userId = localStorage.getItem('userLoggedIn');
+            if (!userId) {
+              alert('Debes iniciar sesión para guardar rutas.');
+              return;
+            }
+            try {
+              const res = await fetch('/api/userlikespath', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: userId, path_id: path.id })
+              });
+              const data = await res.json();
+              if (data.success) {
+                saveBtn.textContent = 'Saved!';
+                saveBtn.disabled = true;
+                saveBtn.style.background = '#43b649';
+              } else {
+                alert(data.error || 'No se pudo guardar la ruta');
+              }
+            } catch (err) {
+              alert('Error al guardar la ruta');
+            }
+          });
+        }
+        container.appendChild(card);
+      });
+    }
+
+    loadUserProfile();
+  </script>
+  <script src="../js/load-user-area.js"></script>
+</body>
+</html>

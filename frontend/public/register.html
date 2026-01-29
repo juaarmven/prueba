@@ -1,0 +1,143 @@
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const btnUpload = document.getElementById('register-btn-upload');
+      const inputFile = document.getElementById('register-image-upload');
+      const imgPreview = document.getElementById('register-image-preview');
+      const placeholder = '../assets/image-placeholder.jpg';
+      if (btnUpload && inputFile && imgPreview) {
+        btnUpload.addEventListener('click', function() {
+          inputFile.value = '';
+          inputFile.click();
+        });
+        inputFile.addEventListener('change', function(e) {
+          const file = e.target.files && e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+              imgPreview.src = ev.target.result;
+            };
+            reader.readAsDataURL(file);
+          } else {
+            imgPreview.src = placeholder;
+          }
+        });
+        // Siempre mostrar el placeholder si no hay imagen cargada
+        if (!inputFile.files || !inputFile.files.length) {
+          imgPreview.src = placeholder;
+        }
+      }
+    });
+  </script>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BBP - Register</title>
+  <link rel="icon" type="image/png" href="../assets/LOGO.png" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/register.css" />
+</head>
+<body>
+  <!-- El header se cargará aquí automáticamente -->
+  
+  <main class="register-container">
+    <div class="register-form-wrapper">
+      <h1 class="register-title">Register</h1>
+      
+      <form class="register-form">
+        <div class="form-row">
+          <input 
+            type="text" 
+            class="form-input" 
+            placeholder="First Name*" 
+            required
+          />
+          <input 
+            type="text" 
+            class="form-input" 
+            placeholder="Last Name*" 
+            required
+          />
+        </div>
+
+        <div class="form-row">
+          <input 
+            type="email" 
+            class="form-input" 
+            placeholder="E-Mail*" 
+            required
+          />
+          <input 
+            type="tel" 
+            class="form-input" 
+            placeholder="Phone*" 
+            required
+          />
+        </div>
+
+        <div class="form-row">
+          <input 
+            type="number" 
+            class="form-input form-input-small" 
+            placeholder="Age" 
+          />
+          <input 
+            type="text" 
+            class="form-input form-input-large" 
+            placeholder="City" 
+          />
+        </div>
+
+        <div class="form-row">
+          <input 
+            type="text" 
+            class="form-input" 
+            placeholder="Username*" 
+            required
+          />
+          <input 
+            type="password" 
+            class="form-input" 
+            placeholder="Password*" 
+            required
+          />
+          <input 
+            type="password" 
+            class="form-input" 
+            placeholder="Repeat Password*" 
+            required
+          />
+        </div>
+
+        <div class="form-image-upload">
+          <div class="image-circle">
+            <img src="../assets/image-placeholder.jpg" alt="Upload preview" id="register-image-preview">
+          </div>
+          <input type="file" id="register-image-upload" name="profile_image" accept="image/*" style="display:none">
+          <button type="button" class="btn-upload" id="register-btn-upload">Upload an image</button>
+        </div>
+
+        <div class="form-checkbox">
+          <input 
+            type="checkbox" 
+            id="terms" 
+            checked
+            required
+          />
+          <label for="terms">
+            By signing up I agree to the 
+            <a href="#" class="link-terms">terms of service and privacy policy</a>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-register">Register</button>
+      </form>
+    </div>
+  </main>
+
+  <script src="../js/load-header.js"></script>
+  <script src="../js/register.js"></script>
+</body>
+          

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BBP - Dashboard</title>
+  <link rel="icon" type="image/png" href="../assets/LOGO.png" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+<body>
+    <div id="dashboard-message-container" style="position:fixed;top:24px;right:32px;z-index:9999;pointer-events:none;"></div>
+  <!--The header will load here automaticaly-->
+  
+  <main class="container">
+    <section class="actions">
+      <a class="action-card register" href="/path-register">
+        <div class="action-content">
+          <div class="action-title">REGISTER A PATH</div>
+        </div>
+        <div class="action-cta" aria-hidden="true">›</div>
+      </a>
+
+      <a class="action-card discover-paths" href="/discover">
+        <div class="action-content">
+          <div class="action-title">DISCOVER NEW PATHS</div>
+        </div>
+        <div class="action-cta" aria-hidden="true">›</div>
+      </a>
+
+      <a class="action-card discover-friends" href="friends">
+        <div class="action-content">
+          <div class="action-title">DISCOVER NEW FRIENDS</div>
+        </div>
+        <div class="action-cta" aria-hidden="true">›</div>
+      </a>
+    </section>
+  </main>
+
+  <script src="../js/load-header.js"></script>
+    <script>
+      // Mostrar mensaje si existe en sessionStorage
+      document.addEventListener('DOMContentLoaded', function() {
+        const msg = sessionStorage.getItem('dashboardMessage');
+        if (msg) {
+          const container = document.getElementById('dashboard-message-container');
+          if (container) {
+            container.innerHTML = '';
+            const div = document.createElement('div');
+            div.textContent = msg;
+            div.style.background = '#43b649';
+            div.style.color = '#fff';
+            div.style.padding = '16px 32px';
+            div.style.borderRadius = '16px';
+            div.style.fontWeight = '700';
+            div.style.fontSize = '1.1rem';
+            div.style.margin = '18px auto 0 auto';
+            div.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+            div.style.transition = 'opacity 0.4s';
+            div.style.maxWidth = '400px';
+            div.style.textAlign = 'center';
+            container.appendChild(div);
+            setTimeout(() => { div.style.opacity = '0'; }, 1800);
+            setTimeout(() => { div.remove(); }, 2200);
+          }
+          sessionStorage.removeItem('dashboardMessage');
+        }
+      });
+    </script>
+  <script src="../js/load-user-area.js"></script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+@media (max-width: 800px) {
+  .ratings-list {
+    gap: 14px 0;
+  }
+  .ratings-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+  .rating-item {
+    max-width: 100%;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    margin-bottom: 14px;
+  }
+}
+.ratings-title-left {
+  text-align: left;
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-bottom: 18px;
+  margin-left: 8px;
+}
+/* Valoraciones */
+.rating-item {
+  background: #f7fff4;
+  border: 1.5px solid #54c242;
+  border-radius: 8px;
+  margin: 12px auto;
+  padding: 14px 18px 10px 18px;
+  max-width: 420px;
+  box-shadow: 0 2px 8px #54c24211;
+  text-align: left;
+}
+.rating-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.rating-user {
+  color: #43b649;
+  font-weight: 600;
+  font-size: 1.08rem;
+}
+.rating-score {
+  color: #54c242;
+  font-weight: 700;
+  font-size: 1.08rem;
+}
+.rating-desc {
+  color: #222;
+  font-size: 1rem;
+  margin-left: 2px;
+}
+/* Centrado del main */
+.main-centered {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Botón valorar */
+.rate-path-btn {
+  background: #2e8b57;
+  color: #fff;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.08rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-bottom: 0;
+}
+.rate-path-btn:hover {
+  background: #256b45;
+}
+.rate-btn-container {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+/* Título valoraciones */
+.ratings-title {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-bottom: 18px;
+}
+
+/* Lista valoraciones */
+/* Valoraciones en grid de 3 columnas */
+.ratings-list {
+  min-height: 60px;
+  color: #888;
+  display: flex;
+  flex-direction: column;
+  gap: 18px 0;
+  margin: 0 auto;
+  max-width: 1300px;
+}
+
+.ratings-row {
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+  justify-content: flex-start;
+  margin-bottom: 0;
+}
+
+.rating-item {
+  background: #f7fff4;
+  border: 1.5px solid #54c242;
+  border-radius: 8px;
+  padding: 14px 18px 10px 18px;
+  width: 100%;
+  max-width: 380px;
+  min-width: 0;
+  box-shadow: 0 2px 8px #54c24211;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.rating-item {
+  background: #f7fff4;
+  border: 1.5px solid #54c242;
+  border-radius: 8px;
+  padding: 14px 18px 10px 18px;
+  width: 100%;
+  max-width: 380px;
+  min-width: 0;
+  box-shadow: 0 2px 8px #54c24211;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Mensaje de error */
+.error-message {
+  text-align: center;
+  color: red;
+}
+/* Fila de dos campos */
+.fields-row {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 8px;
+}
+.field-group {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 700px) {
+  .fields-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+/* Path Details Styles */
+
+.path-details-container {
+  margin-top: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.path-details-image {
+  flex: 1 1 320px;
+  max-width: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.path-details-image img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 2px 12px #0001;
+  border: 4px solid #eafbe6;
+  background: #f5f5f5;
+}
+
+.path-details-fields {
+  flex: 1 1 320px;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.path-details-fields label {
+  font-size: 1.08rem;
+  color: #333;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.path-details-fields input,
+.path-details-fields textarea {
+  width: 100%;
+  font-size: 1.08rem;
+  padding: 8px 12px;
+  border: 1.5px solid #d1e7d1;
+  border-radius: 7px;
+  background: #f8f8f8;
+  color: #444;
+  resize: none;
+  pointer-events: none;
+}
+
+.path-details-fields textarea {
+  min-height: 60px;
+  max-height: 180px;
+}
+
+@media (max-width: 900px) {
+  .path-details-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .path-details-image, .path-details-fields {
+    max-width: 100%;
+  }
+}

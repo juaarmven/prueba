@@ -1,0 +1,99 @@
+/* Botón verde Save en la esquina superior derecha del path-card */
+.save-path-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #2ecc40;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 18px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #0002;
+  transition: background 0.15s, box-shadow 0.15s;
+  z-index: 2;
+}
+.save-path-btn:hover {
+  background: #27ae38;
+  box-shadow: 0 4px 16px #0003;
+}
+/* Estilos para mostrar 4 path-card por fila en la galería de rutas públicas */
+
+
+.paths-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 36px 36px;
+  margin-bottom: 48px;
+  justify-content: center;
+}
+
+.path-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px #0001;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s, box-shadow 0.15s;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.path-card:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 6px 24px #0002;
+}
+
+.path-image {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #eaeaea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.path-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.path-card-text {
+  padding: 16px 14px 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.path-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 2px;
+}
+
+.path-author {
+  font-size: 0.98rem;
+  color: #555;
+}
+
+@media (max-width: 1300px) {
+  .paths-gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 900px) {
+  .paths-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .paths-gallery {
+    grid-template-columns: 1fr;
+  }
+}

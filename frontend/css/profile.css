@@ -1,0 +1,313 @@
+@media (max-width: 800px) {
+  .profile-container {
+    margin-top: 170px !important;
+    padding-top: 0;
+  }
+}
+/* Username box estilo verde */
+.profile-username {
+  width: 320px;
+  margin: 24px auto 0 auto;
+  background: #eafbe6;
+  border: 2px solid #43b649;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #222;
+  padding: 12px 0;
+  letter-spacing: 0.5px;
+}
+
+/* Paths done verde y negrita */
+.profile-paths-done {
+  color: #43b649;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 18px auto 0 auto;
+}
+
+/* Botón editar foto con icono verde */
+.btn-edit-photo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 24px 0 0 0;
+  color: #43b649;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+.btn-edit-photo .edit-icon {
+  filter: invert(49%) sepia(77%) saturate(600%) hue-rotate(70deg) brightness(95%) contrast(90%);
+  width: 28px;
+  height: 28px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+/* Botón guardar cambios igual que el diseño */
+.profile-save-btn {
+  margin-top: 18px;
+  background: #43b649;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 14px 38px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(67,182,73,0.08);
+  transition: background 0.2s;
+  margin-left: auto;
+  margin-right: auto;
+}
+.profile-save-btn:hover {
+  background: #2e8c36;
+}
+
+/* Inputs verdes y alineados */
+.profile-form-group input {
+  border: 2px solid #43b649;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 1.1rem;
+  outline: none;
+  transition: border 0.2s;
+  color: #222;
+  background: #fff;
+}
+
+.profile-form-group input:focus {
+  border-color: #2e8c36;
+}
+
+
+.btn-edit-photo .edit-icon {
+  filter: invert(49%) sepia(77%) saturate(600%) hue-rotate(70deg) brightness(95%) contrast(90%);
+  /* Verde BBP */
+  transition: filter 0.2s;
+}
+/* profile.css - Estilo para la página de perfil de usuario */
+
+body {
+  font-family: 'Montserrat', Arial, sans-serif;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding-top: 40px;
+  gap: 60px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.profile-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 350px;
+  flex: 1.2;
+}
+
+.profile-image-circle {
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+.profile-image-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-edit-photo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 24px 0 0 0;
+  color: #43b649;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.profile-edit-photo i {
+  font-size: 1.3rem;
+}
+
+.profile-username {
+  width: 90%;
+  margin: 24px auto 0 auto;
+  background: #fff;
+  border: 2px solid #43b649;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #222;
+  padding: 12px 0;
+  letter-spacing: 0.5px;
+}
+
+.profile-paths-done {
+  margin: 18px auto 0 auto;
+  color: #43b649;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.profile-right {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 400px;
+  margin-top: 40px;
+}
+
+.profile-title {
+  font-size: 2.6rem;
+  font-weight: 400;
+  color: #333;
+  margin-bottom: 32px;
+  margin-top: 10px;
+  letter-spacing: 1px;
+  text-align: left;
+  width: 100%;
+}
+
+.profile-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.profile-form-row {
+  display: flex;
+  gap: 18px;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.profile-form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.profile-form-group label {
+  color: #43b649;
+  font-weight: 600;
+  margin-bottom: 4px;
+  font-size: 1rem;
+}
+
+.profile-form-group input {
+  border: 2px solid #43b649;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 1.1rem;
+  outline: none;
+  transition: border 0.2s;
+  color: #222;
+  background: #fff;
+}
+
+.profile-form-group input:focus {
+  border-color: #2e8c36;
+}
+
+.profile-form-group input[readonly] {
+  background: #f7f7f7;
+  color: #888;
+}
+
+.profile-save-btn {
+  width: 50%;
+  margin-top: 18px;
+  background: #43b649;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 14px 38px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(67,182,73,0.08);
+  transition: background 0.2s;
+  text-align: center;
+}
+
+.profile-save-btn:hover {
+  background: #2e8c36;
+}
+
+@media (max-width: 900px) {
+  .profile-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    padding-top: 24px;
+  }
+  .profile-right {
+    min-width: 0;
+    width: 90%;
+  }
+  .profile-left {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-container {
+    padding-top: 10px;
+  }
+  .profile-title {
+    font-size: 1.5rem;
+    margin-bottom: 18px;
+  }
+  .profile-image-circle {
+    width: 180px;
+    height: 180px;
+  }
+  .profile-form-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

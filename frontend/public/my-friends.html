@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Friends</title>
+  <link rel="icon" type="image/png" href="../assets/LOGO.png" />
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/friends.css">
+</head>
+<body>
+  <div id="header-container"></div>
+  <main style="max-width:1100px;margin:0 auto;">
+    <h1 style="text-align:center;margin:32px 0 24px 0;font-size:2.1rem;font-weight:400;text-transform:uppercase;letter-spacing:1px;">My Friends</h1>
+    <div id="friends-list" class="friends-grid"></div>
+  </main>
+  <script src="../js/load-header.js"></script>
+  <script src="../js/load-user-area.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const userId = localStorage.getItem('userLoggedIn');
+      if (!userId) {
+        document.getElementById('friends-list').innerHTML = '<div style="text-align:center;color:red;">Debes iniciar sesión para ver tus amigos.</div>';
+        return;
+      }
+      try {
+        // Obtener IDs de amigos
+        const res = await fetch(`/api/${userId}/following`);
+        const friendIds = await res.json();
+        if (!friendIds.length) {
+          document.getElementById('friends-list').innerHTML = '<div style="text-align:center;">No sigues a ningún usuario.</div>';
+          return;
+        }
+        // Obtener datos de todos los usuarios
+        const resAll = await fetch('/api/all');
+        const allUsers = await resAll.json();
+        // Filtrar solo los amigos
+        const friends = allUsers.filter(u => friendIds.includes(u.id));
+        renderFriends(friends);
+      } catch (err) {
+        document.getElementById('friends-list').innerHTML = '<div style="text-align:center;color:red;">Error cargando amigos.</div>';
+      }
+    });
+    function renderFriends(users) {
+      const grid = document.getElementById('friends-list');
+      grid.innerHTML = '';
+      users.forEach(user => {
+        const card = document.createElement('div');
+        card.className = 'friend-card';
+        card.innerHTML = `
+          <div class="friend-img-placeholder">
+            <img class="friend-profile-img" src="${user.profile_image || '../assets/avatar-placeholder.png'}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; background: #ededed; cursor:pointer;" data-friend-id="${user.id}">
+          </div>
+          <div class="friend-username">${user.username}</div>
+        `;
+        // Click en imagen para ir a su perfil público
+        card.querySelector('.friend-profile-img').addEventListener('click', (e) => {
+          const friendId = e.currentTarget.getAttribute('data-friend-id');
+          if (friendId) {
+            window.location.href = `/paths?user=${encodeURIComponent(friendId)}`;
+          }
+        });
+        grid.appendChild(card);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BBP - Login</title>
+  <link rel="icon" type="image/png" href="../assets/LOGO.png" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/login.css" />
+</head>
+<body>
+  <!-- El header se cargará aquí automáticamente -->
+  
+  <main class="login-container">
+    <div class="login-form-wrapper">
+      <h1 class="login-title">Welcome cyclist!</h1>
+      
+      <form class="login-form">
+        <input 
+          type="email" 
+          class="form-input" 
+          placeholder="Your Email" 
+          required
+        />
+        
+        <input 
+          type="password" 
+          class="form-input" 
+          placeholder="Your Password" 
+          required
+        />
+        
+        <button type="submit" class="btn btn-login">Login</button>
+        
+        <p class="login-text">if you are not yet logged</p>
+        
+        <a href="/register" class="btn btn-signup">Sign up</a>
+      </form>
+    </div>
+  </main>
+
+  <script src="../js/load-header.js"></script>
+  <script src="../js/login.js"></script>
+</body>
+</html>

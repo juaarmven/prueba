@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Account</title>
+<link rel="icon" type="image/png" href="../assets/LOGO.png" />
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/profile.css">
+</head>
+<body>
+  <!-- Header (auto-load) -->
+  <div id="profile-message-container" style="width:100%;display:flex;justify-content:center;align-items:center;"></div>
+  <main class="profile-container">
+    <div class="profile-left">
+      <div class="profile-image-circle">
+        <img src="../assets/avatar.png" alt="Profile photo">
+      </div>
+      <button type="button" class="btn-edit-photo" id="edit-photo-btn">
+        <img src="../assets/edit.svg" alt="Edit" class="edit-icon"> EDIT PHOTO
+      </button>
+      <input type="file" id="profile_image_quick" name="profile_image_quick" accept="image/*" style="display:none">
+      <div class="profile-username" style="width: 320px; margin: 24px auto 0 auto; background: #eafbe6; border: 2px solid #43b649; border-radius: 6px; text-align: center; font-size: 1.2rem; font-weight: 700; color: #222; padding: 12px 0; letter-spacing: 0.5px;">Jhon23401</div>
+      <div class="profile-paths-done" style="color: #43b649; font-weight: 700; font-size: 1.2rem; text-align: center; margin: 18px auto 0 auto;"></div>
+    </div>
+    <div class="profile-right">
+      <h1 class="profile-title">Your Account</h1>
+      <form class="profile-form">
+        <div class="profile-form-row">
+          <div class="profile-form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" value="Jhon">
+          </div>
+          <div class="profile-form-group">
+            <label for="lastname">Lastname</label>
+            <input type="text" id="lastname" name="lastname" value="Young">
+          </div>
+          <div class="profile-form-group">
+            <label for="age">Age</label>
+            <input type="text" id="age" name="age" value="20">
+          </div>
+        </div>
+        <div class="profile-form-row">
+          <div class="profile-form-group wide">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" value="jhon23401@gmail.com">
+          </div>
+          <div class="profile-form-group">
+            <label for="phone">Phone number</label>
+            <input type="text" id="phone" name="phone" value="+06 36 7962629">
+          </div>
+        </div>
+        <div class="profile-form-row">
+          <div class="profile-form-group wide">
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" value="Milano">
+          </div>
+        </div>
+        <button type="submit" class="profile-save-btn"><span style="display:inline-block;vertical-align:middle;margin-right:8px;">💾</span> Save changes</button>
+      </form>
+    </div>
+  </main>
+  <script src="../js/load-header.js"></script>
+  <script src="../js/load-user-area.js"></script>
+  <script src="../js/profile.js"></script>
+  <script src="../js/profile-paths.js"></script>
+  <script src="../js/profile-save.js"></script>
+</body>
+</html>

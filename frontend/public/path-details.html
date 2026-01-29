@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Path Details</title>
+  <link rel="icon" type="image/png" href="../assets/LOGO.png" />
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/discover.css">
+  <link rel="stylesheet" href="../css/profile.css">
+  <link rel="stylesheet" href="../css/path-details.css">
+</head>
+<body>
+  <div id="header-container"></div>
+  <main class="main-centered">
+    <div id="path-details-container"></div>
+  </main>
+  <script src="../js/load-header.js"></script>
+    <script src="../js/ratings-view.js"></script>
+  <script>
+    function getPathIdFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('id');
+    }
+    async function loadPathDetails() {
+      const pathId = getPathIdFromUrl();
+      const container = document.getElementById('path-details-container');
+      if (!pathId) {
+        container.innerHTML = '<div style="text-align:center;color:red;">Path not found.</div>';
+        return;
+      }
+      try {
+        const res = await fetch(`/api/path/${pathId}`);
+        if (!res.ok) throw new Error('Not found');
+        const path = await res.json();
+        container.innerHTML = `
+          <h1 style="text-align:center;font-size:2rem;font-weight:400;margin-bottom:8px;">${(path.name)}</h1>
+          <div style="text-align:center;font-size:1.08rem;color:#555;margin-bottom:22px;">
+            <b>Created by:</b> <span>${path.creator_username || ''}</span>
+          </div>
+          <div class="path-details-container">
+            <div class="path-details-image">
+              <img src="${path.path_photo ? path.path_photo : '../assets/ejemplo.jpg'}" alt="Path image">
+            </div>
+            <form class="path-details-fields" autocomplete="off" onsubmit="return false;">
+              <div class="fields-row">
+                <div class="field-group">
+                  <label>Origin</label>
+                  <input type="text" value="${path.origin || ''}" readonly>
+                </div>
+                <div class="field-group">
+                  <label>Destination</label>
+                  <input type="text" value="${path.end || ''}" readonly>
+                </div>
+              </div>
+              <div class="fields-row">
+                <div class="field-group">
+                  <label>Difficulty</label>
+                  <input type="text" value="${path.difficulty || ''}" readonly>
+                </div>
+                <div class="field-group">
+                  <label>Distance (km)</label>
+                  <input type="text" value="${path.distance || ''}" readonly>
+                </div>
+              </div>
+              <div class="fields-row">
+                <div class="field-group">
+                  <label>Elevation gain</label>
+                  <input type="text" value="${path.elevation_gain || ''}" readonly>
+                </div>
+                <div class="field-group">
+                  <label>Average velocity (km/h)</label>
+                  <input type="text" value="${path.average_velocity || ''}" readonly>
+                </div>
+              </div>
+              <div class="fields-row">
+                <div class="field-group">
+                  <label>Status</label>
+                  <input type="text" value="${path.status || ''}" readonly>
+                </div>
+                <div class="field-group">
+                  <label>Duration</label>
+                  <input type="text" value="${path.duration || ''}" readonly>
+                </div>
+              </div>
+              <label>Description</label>
+              <textarea readonly>${path.description || ''}</textarea>
+            </form>
+          </div>
+          <section id="ratings-section" style="margin-top:40px;">
+            <div style="text-align:center;margin-bottom:18px;">
+              <button id="rate-path-btn" style="background:#2e8b57;color:#fff;padding:10px 22px;border:none;border-radius:6px;font-size:1.08rem;cursor:pointer;transition:background 0.2s;">Valorar este recorrido</button>
+            </div>
+            <h2 class="ratings-title-left">Valoraciones</h2>
+            <div id="ratings-list" style="min-height:60px;text-align:center;color:#888;">
+              <!-- Aquí se mostrarán las valoraciones de los usuarios -->
+              <span>No hay valoraciones aún.</span>
+            </div>
+            <!-- Aquí podrías agregar un formulario para dejar una valoración si el usuario está logueado -->
+          </section>
+        `;
+        if (typeof loadRatings === 'function') {
+          loadRatings(pathId);
+        }
+        const btn = document.getElementById('rate-path-btn');
+        if (btn) {
+          btn.onclick = function() {
+            const pathId = getPathIdFromUrl();
+            window.location.href = '/rate-path?id=' + encodeURIComponent(pathId);
+          };
+        }
+      } catch {
+        container.innerHTML = '<div style="text-align:center;color:red;">Path not found or error loading data.</div>';
+      }
+    }
+    loadPathDetails();
+  </script>
+</body>
+</html>

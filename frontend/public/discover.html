@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BBP - Discover New Paths</title>
+  <link rel="icon" type="image/png" href="../assets/LOGO.png" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/discover.css" />
+</head>
+<body>
+  <!-- El header se cargará aquí automáticamente -->
+  
+  <main class="discover-container">
+    <h1 class="discover-title">Discover New Paths!</h1>
+
+    <div class="search-bar">
+      <div class="search-input-wrapper" style="position:relative;display:flex;flex-direction:column;">
+        <input 
+          type="text" 
+          class="search-input" 
+          placeholder="Origin"
+        />
+      </div>
+      <div class="search-input-wrapper" style="position:relative;display:flex;flex-direction:column;">
+        <input 
+          type="text" 
+          class="search-input" 
+          placeholder="Destination"
+        />
+      </div>
+      <button class="btn-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="discover-content">
+      <!-- Filtros Toggle -->
+      <div class="filters-header">
+        <button class="filters-toggle-btn" id="filtersToggle">
+          <span>Filters</span>
+          <svg class="toggle-arrow" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M7 10l5 5 5-5z"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Filtros -->
+      <aside class="filters-sidebar closed" id="filtersSidebar">
+        <h2 class="filters-title">Filters</h2>
+
+        <!-- Distance Filter -->
+        <div class="filter-group">
+          <label class="filter-label">Distance</label>
+          <div class="range-slider">
+            <input type="range" min="0" max="150" value="0" class="slider" id="distanceMin" />
+            <input type="range" min="0" max="150" value="150" class="slider" id="distanceMax" />
+            <div class="range-values">
+              <span id="distanceMinValue">0km</span> - <span id="distanceMaxValue">150km</span>
+            </div>
+          </div>
+        </div>
+
+                <!-- Elevation Gain Filter -->
+        <div class="filter-group">
+          <label class="filter-label">Elevation Gain</label>
+          <div class="range-slider">
+            <input type="range" min="0" max="100" value="0" class="slider" id="elevationMin" />
+            <input type="range" min="0" max="2000" value="2000" class="slider" id="elevationMax" />
+            <div class="range-values">
+              <span id="elevationMinValue">0m</span> - <span id="elevationMaxValue">2000m</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Average Velocity Filter -->
+        <div class="filter-group">
+          <label class="filter-label">Average Velocity</label>
+          <div class="range-slider">
+            <input type="range" min="0" max="60" value="0" class="slider" id="velocityMin" />
+            <input type="range" min="0" max="60" value="60" class="slider" id="velocityMax" />
+            <div class="range-values">
+              <span id="velocityMinValue">0km/h</span> - <span id="velocityMaxValue">60km/h</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Difficulty Filter -->
+        <div class="filter-group">
+          <label class="filter-label">Difficulty</label>
+          <select class="filter-select" id="difficultyFilter">
+            <option value="">-- Any --</option>
+            <option value="Easy">Easy</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Difficult">Difficult</option>
+          </select>
+        </div>
+
+        <!-- Status Filter -->
+        <div class="filter-group">
+          <label class="filter-label">Status</label>
+          <select class="filter-select" id="statusFilter">
+            <option value="">-- Any --</option>
+            <option value="Optimal">Optimal</option>
+            <option value="Sufficient">Sufficient</option>
+            <option value="Requires maintenance">Requires maintenance</option>
+          </select>
+        </div>
+
+        <!-- Max Duration Filter -->
+        <div class="filter-group">
+          <label class="filter-label">Max Duration</label>
+          <input type="time" class="filter-input" id="durationMax" step="1" value="01:00:00" />
+        </div>
+
+        <!-- Apply Button -->
+        <button class="btn-apply">Apply</button>
+      </aside>
+
+      <!-- Galería de Paths -->
+      <div class="paths-gallery">
+        <div class="paths-carousel">
+          <!-- Path Card 1 -->
+          <div class="path-card">
+            <div class="path-image">
+              <img src="../assets/ejemplo.jpg" alt="Imagen de la ruta" />
+              <button class="favorite-btn" title="Añadir a favoritos">
+                <img src="../assets/me-gusta.png" alt="Favorito" width="28" height="28" />
+              </button>
+            </div>
+            <div class="path-card-text">
+              <div class="path-name">Milano Porta Venezia - San Siro</div>
+              <div class="path-author">Published by BikeLifeBeth</div>
+            </div>
+          </div>
+
+          <!-- Path Card 2 -->
+          <div class="path-card">
+            <div class="path-image">
+              <img src="../assets/ejemplo.jpg" alt="Imagen de la ruta" />
+              <button class="favorite-btn" title="Añadir a favoritos">
+                <img src="../assets/me-gusta.png" alt="Favorito" width="28" height="28" />
+              </button>
+            </div>
+            <div class="path-card-text">
+              <div class="path-name">Milano Porta Venezia - San Siro</div>
+              <div class="path-author">Published by BikeLifeBeth</div>
+            </div>
+          </div>
+
+          <!-- Path Card 3 -->
+          <div class="path-card">
+            <div class="path-image">
+              <img src="../assets/ejemplo.jpg" alt="Imagen de la ruta" />
+              <button class="favorite-btn" title="Añadir a favoritos">
+                <img src="../assets/me-gusta.png" alt="Favorito" width="28" height="28" />
+              </button>
+            </div>
+            <div class="path-card-text">
+              <div class="path-name">Milano Porta Venezia - San Siro</div>
+              <div class="path-author">Published by BikeLifeBeth</div>
+            </div>
+          </div>
+
+                    <!-- Path Card 4 -->
+          <div class="path-card">
+            <div class="path-image">
+              <img src="../assets/ejemplo.jpg" alt="Imagen de la ruta" />
+              <button class="favorite-btn" title="Añadir a favoritos">
+                <img src="../assets/me-gusta.png" alt="Favorito" width="28" height="28" />
+              </button>
+            </div>
+            <div class="path-card-text">
+              <div class="path-name">Milano Porta Venezia - San Siro</div>
+              <div class="path-author">Published by BikeLifeBeth</div>
+            </div>
+          </div>
+        </div>
+        <!-- Los controles de paginación se generan dinámicamente por JS -->
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/load-header.js"></script>
+  <script src="../js/discover.js"></script>
+  <script src="../js/load-user-area.js"></script>
+</body>
+</html>
