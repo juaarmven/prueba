@@ -86,6 +86,27 @@
   color: #222;
   background: #fff;
 }
+/* Unificar estilo de todos los inputs, selects y textarea */
+.profile-form-group input[type="text"],
+.profile-form-group input[type="email"],
+.profile-form-group input[type="number"],
+.profile-form-group select,
+.profile-form-group textarea {
+  width: 100%;
+  padding: 12px 18px;
+  border: 2px solid #43b649;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-family: inherit;
+  background: #fff;
+  color: #222;
+  margin-top: 6px;
+  margin-bottom: 0;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  resize: none;
+}
 
 .profile-form-group input:focus {
   border-color: #2e8c36;

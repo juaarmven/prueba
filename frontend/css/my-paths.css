@@ -1,0 +1,151 @@
+#saved-paths-list .paths-gallery {
+  display: flex;
+  justify-content: center;
+}
+#saved-paths-list .paths-carousel {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
+  max-width: 1200px;
+}
+#saved-paths-list .path-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(31,41,55,0.10);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  min-height: unset;
+  height: auto;
+}
+#saved-paths-list .path-image {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  background: #eaeaea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+}
+#saved-paths-list .path-image img, #saved-paths-list .path-image svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
+#saved-paths-list .path-card-text {
+  padding-bottom: 16px;
+}
+@media (max-width: 1100px) {
+  #saved-paths-list .paths-carousel {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 700px) {
+  #saved-paths-list .paths-carousel {
+    grid-template-columns: 1fr;
+  }
+}
+#saved-paths-list a:hover {
+  text-decoration: underline;
+}
+#paths-list .edit-path-btn {
+  display: block;
+  margin: 18px auto 0 auto;
+  max-width: 180px;
+  text-align: center;
+  background: #54c242;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+  box-shadow: 0 2px 8px rgba(84, 194, 66, 0.08);
+}
+#paths-list .edit-path-btn:hover {
+  background: #1a4d23;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(43, 138, 62, 0.18);
+}
+/* my-paths.css */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f7f7f7;
+  margin: 0;
+  padding: 0;
+}
+h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 30px;
+}
+
+/* Galería de paths estilo grid */
+#paths-list .paths-gallery {
+  display: flex;
+  justify-content: center;
+}
+#paths-list .paths-carousel {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
+  max-width: 1200px;
+}
+#paths-list .path-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(31,41,55,0.10);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  min-height: unset;
+  height: auto;
+}
+#paths-list .path-image {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  background: #eaeaea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+}
+#paths-list .path-image img, #paths-list .path-image svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
+#paths-list .path-card-text {
+  padding-bottom: 16px;
+}
+@media (max-width: 1100px) {
+  #paths-list .paths-carousel {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 700px) {
+  #paths-list .paths-carousel {
+    grid-template-columns: 1fr;
+  }
+}
+#paths-list a:hover {
+  text-decoration: underline;
+}

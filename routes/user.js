@@ -19,25 +19,17 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage });
-const pool = mariadb.createPool({
-  host: '127.0.0.1',
-  user: 'ProyectoSW2',
-  password: 'ProyectoSW2',
-  database: 'bbp',
-  connectionLimit: 5
-});
+module.exports = (pool) => {
+  console.log('Router de usuario cargado');
 
-console.log('Router de usuario cargado');
-
-// Registro de usuario con imagen de perfil
-
-router.post('/register', upload.single('profile_image'), async (req, res) => {
-  const { name, last_name, age, location, email, password, phone, username } = req.body;
-  let conn;
-  try {
-    conn = await pool.getConnection();
-    // 1. Insertar en User y obtener el id generado
-    const userResult = await conn.query('INSERT INTO User (user_type) VALUES (?)', ['Registered']);
+  // Registro de usuario con imagen de perfil
+  router.post('/register', upload.single('profile_image'), async (req, res) => {
+    const { name, last_name, age, location, email, password, phone, username } = req.body;
+    let conn;
+    try {
+      conn = await pool.getConnection();
+      // 1. Insertar en User y obtener el id generado
+      const userResult = await conn.query('INSERT INTO user (user_type) VALUES (?)', ['Registered']);
     const userId = userResult.insertId;
 
     // 2. Procesar imagen de perfil si existe
@@ -51,13 +43,13 @@ router.post('/register', upload.single('profile_image'), async (req, res) => {
       imagePath = '/uploads/' + newFileName;
     }
 
-    // 3. Insertar en RegisteredUser con el id generado
+    // 3. Insertar en registeredUser con el id generado
     await conn.query(
-      'INSERT INTO RegisteredUser (id, name, last_name, age, location, profile_image, email, password, phone, username) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO registereduser (id, name, last_name, age, location, profile_image, email, password, phone, username) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [userId, name, last_name, age, location, imagePath, email, password, phone, username]
     );
     // Recupera el usuario recién creado para serializar correctamente phone
-    const [user] = await conn.query('SELECT * FROM RegisteredUser WHERE id = ?', [userId]);
+    const [user] = await conn.query('SELECT * FROM registereduser WHERE id = ?', [userId]);
     if (user && typeof user.phone === 'bigint') {
       user.phone = user.phone.toString();
     }
@@ -79,7 +71,7 @@ router.post('/login', async (req, res) => {
     conn = await pool.getConnection();
     // IMPORTANTE: Usa el nombre correcto de la tabla y mayúsculas como en tu SQL
     const rows = await conn.query(
-      'SELECT * FROM RegisteredUser WHERE email = ? AND password = ?',
+      'SELECT * FROM registereduser WHERE email = ? AND password = ?',
       [email, password]
     );
     console.log('Resultado login:', rows);
@@ -105,7 +97,7 @@ router.get('/user/:id', async (req, res) => {
   let conn;
   try {
     conn = await pool.getConnection();
-    const rows = await conn.query('SELECT * FROM RegisteredUser WHERE id = ?', [req.params.id]);
+    const rows = await conn.query('SELECT * FROM registereduser WHERE id = ?', [req.params.id]);
     if (rows.length > 0) {
       // CORRECCIÓN: Si profile_image es un Buffer, devolver la ruta o un placeholder
       if (rows[0].profile_image && typeof rows[0].profile_image === 'object' && rows[0].profile_image.type === 'Buffer') {
@@ -132,7 +124,7 @@ router.put('/user/:id', async (req, res) => {
   try {
     conn = await pool.getConnection();
     await conn.query(
-      'UPDATE RegisteredUser SET name=?, last_name=?, age=?, location=?, email=?, phone=?, username=? WHERE id=?',
+      'UPDATE registereduser SET name=?, last_name=?, age=?, location=?, email=?, phone=?, username=? WHERE id=?',
       [name, last_name, age, location, email, phone, username, req.params.id]
     );
     res.json({ success: true });
@@ -149,7 +141,7 @@ router.put('/user/:id/password', async (req, res) => {
   let conn;
   try {
     conn = await pool.getConnection();
-    await conn.query('UPDATE RegisteredUser SET password=? WHERE id=?', [password, req.params.id]);
+    await conn.query('UPDATE registereduser SET password=? WHERE id=?', [password, req.params.id]);
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -167,7 +159,7 @@ router.post('/user/:id/profile_image', upload.single('profile_image'), async (re
   let conn;
   try {
     conn = await pool.getConnection();
-    await conn.query('UPDATE RegisteredUser SET profile_image=? WHERE id=?', [imagePath, req.params.id]);
+    await conn.query('UPDATE registereduser SET profile_image=? WHERE id=?', [imagePath, req.params.id]);
     res.json({ success: true, imagePath });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -184,8 +176,8 @@ router.delete('/user/:id', async (req, res) => {
   let conn;
   try {
     conn = await pool.getConnection();
-    await conn.query('DELETE FROM RegisteredUser WHERE id=?', [req.params.id]);
-    await conn.query('DELETE FROM User WHERE id=?', [req.params.id]);
+    await conn.query('DELETE FROM registereduser WHERE id=?', [req.params.id]);
+    await conn.query('DELETE FROM user WHERE id=?', [req.params.id]);
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -202,9 +194,9 @@ router.get('/user', async (req, res) => {
     conn = await pool.getConnection();
     let rows = [];
     if (email) {
-      rows = await conn.query('SELECT * FROM RegisteredUser WHERE email=?', [email]);
+      rows = await conn.query('SELECT * FROM registereduser WHERE email=?', [email]);
     } else if (username) {
-      rows = await conn.query('SELECT * FROM RegisteredUser WHERE username=?', [username]);
+      rows = await conn.query('SELECT * FROM registereduser WHERE username=?', [username]);
     }
     if (rows.length > 0) {
       res.json(rows[0]);
@@ -223,7 +215,7 @@ router.get('/user/:id/paths/count', async (req, res) => {
   let conn;
   try {
     conn = await pool.getConnection();
-    const rows = await conn.query('SELECT COUNT(*) as count FROM Path WHERE created_by = ?', [req.params.id]);
+    const rows = await conn.query('SELECT COUNT(*) as count FROM path WHERE created_by = ?', [req.params.id]);
     let count = rows[0].count;
     // Si es BigInt, conviértelo a number
     if (typeof count === 'bigint') count = Number(count);
@@ -241,7 +233,7 @@ router.get('/all', async (req, res) => {
   let conn;
   try {
     conn = await pool.getConnection();
-    let query = 'SELECT id, username, profile_image FROM RegisteredUser';
+    let query = 'SELECT id, username, profile_image FROM registereduser';
     const params = [];
     if (req.query.excludeId) {
       query += ' WHERE id != ?';
@@ -269,11 +261,11 @@ router.post('/follow', async (req, res) => {
   try {
     conn = await pool.getConnection();
     // Evitar duplicados
-    const exists = await conn.query('SELECT * FROM UserFriends WHERE user_id = ? AND friend_id = ?', [user_id, friend_id]);
+    const exists = await conn.query('SELECT * FROM userfriends WHERE user_id = ? AND friend_id = ?', [user_id, friend_id]);
     if (exists.length > 0) {
       return res.json({ success: false, error: 'Ya sigues a este usuario' });
     }
-    await conn.query('INSERT INTO UserFriends (user_id, friend_id) VALUES (?, ?)', [user_id, friend_id]);
+    await conn.query('INSERT INTO userfriends (user_id, friend_id) VALUES (?, ?)', [user_id, friend_id]);
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -287,7 +279,7 @@ router.get('/:id/following', async (req, res) => {
   let conn;
   try {
     conn = await pool.getConnection();
-    const rows = await conn.query('SELECT friend_id FROM UserFriends WHERE user_id = ?', [req.params.id]);
+    const rows = await conn.query('SELECT friend_id FROM userfriends WHERE user_id = ?', [req.params.id]);
     // Devuelve solo un array de IDs
     const following = rows.map(r => r.friend_id);
     res.json(following);
@@ -308,11 +300,11 @@ router.post('/userlikespath', async (req, res) => {
   try {
     conn = await pool.getConnection();
     // Evitar duplicados
-    const exists = await conn.query('SELECT * FROM UserLikesPath WHERE user_id = ? AND path_id = ?', [user_id, path_id]);
+    const exists = await conn.query('SELECT * FROM userlikespath WHERE user_id = ? AND path_id = ?', [user_id, path_id]);
     if (exists.length > 0) {
       return res.json({ success: false, error: 'Ya guardaste esta ruta' });
     }
-    await conn.query('INSERT INTO UserLikesPath (user_id, path_id) VALUES (?, ?)', [user_id, path_id]);
+    await conn.query('INSERT INTO userlikespath (user_id, path_id) VALUES (?, ?)', [user_id, path_id]);
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -327,7 +319,7 @@ router.get('/userlikespath/:user_id', async (req, res) => {
   let conn;
   try {
     conn = await pool.getConnection();
-    const rows = await conn.query('SELECT path_id FROM UserLikesPath WHERE user_id = ?', [user_id]);
+    const rows = await conn.query('SELECT path_id FROM userlikespath WHERE user_id = ?', [user_id]);
     // Devuelve solo un array de IDs
     const liked = rows.map(r => r.path_id);
     res.json(liked);
@@ -338,4 +330,6 @@ router.get('/userlikespath/:user_id', async (req, res) => {
   }
 });
 
-module.exports = router;
+
+  return router;
+}

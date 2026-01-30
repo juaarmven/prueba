@@ -16,7 +16,8 @@
     <div id="path-details-container"></div>
   </main>
   <script src="../js/load-header.js"></script>
-    <script src="../js/ratings-view.js"></script>
+  <script src="../js/ratings-view.js"></script>
+  <script src="../js/load-user-area.js"></script>
   <script>
     function getPathIdFromUrl() {
       const params = new URLSearchParams(window.location.search);
@@ -45,6 +46,10 @@
             <form class="path-details-fields" autocomplete="off" onsubmit="return false;">
               <div class="fields-row">
                 <div class="field-group">
+                  <label>Name</label>
+                  <input type="text" value="${path.name || ''}" readonly>
+                </div>
+                <div class="field-group">
                   <label>Origin</label>
                   <input type="text" value="${path.origin || ''}" readonly>
                 </div>
@@ -59,22 +64,6 @@
                   <input type="text" value="${path.difficulty || ''}" readonly>
                 </div>
                 <div class="field-group">
-                  <label>Distance (km)</label>
-                  <input type="text" value="${path.distance || ''}" readonly>
-                </div>
-              </div>
-              <div class="fields-row">
-                <div class="field-group">
-                  <label>Elevation gain</label>
-                  <input type="text" value="${path.elevation_gain || ''}" readonly>
-                </div>
-                <div class="field-group">
-                  <label>Average velocity (km/h)</label>
-                  <input type="text" value="${path.average_velocity || ''}" readonly>
-                </div>
-              </div>
-              <div class="fields-row">
-                <div class="field-group">
                   <label>Status</label>
                   <input type="text" value="${path.status || ''}" readonly>
                 </div>
@@ -83,13 +72,31 @@
                   <input type="text" value="${path.duration || ''}" readonly>
                 </div>
               </div>
-              <label>Description</label>
-              <textarea readonly>${path.description || ''}</textarea>
+              <div class="fields-row">
+                <div class="field-group">
+                  <label>Distance</label>
+                  <input type="text" value="${path.distance || ''}" readonly>
+                </div>
+                <div class="field-group">
+                  <label>Elevation Gain</label>
+                  <input type="text" value="${path.elevation_gain || ''}" readonly>
+                </div>
+                <div class="field-group">
+                  <label>Average Velocity</label>
+                  <input type="text" value="${path.average_velocity || ''}" readonly>
+                </div>
+              </div>
+              <div class="fields-row">
+                <div class="field-group" style="grid-column: span 3;">
+                  <label>Description</label>
+                  <textarea readonly>${path.route || ''}</textarea>
+                </div>
+              </div>
             </form>
           </div>
           <section id="ratings-section" style="margin-top:40px;">
             <div style="text-align:center;margin-bottom:18px;">
-              <button id="rate-path-btn" style="background:#2e8b57;color:#fff;padding:10px 22px;border:none;border-radius:6px;font-size:1.08rem;cursor:pointer;transition:background 0.2s;">Valorar este recorrido</button>
+              <button id="rate-path-btn" class="rate-path-btn">Valorar este recorrido</button>
             </div>
             <h2 class="ratings-title-left">Valoraciones</h2>
             <div id="ratings-list" style="min-height:60px;text-align:center;color:#888;">

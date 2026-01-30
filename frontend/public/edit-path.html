@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Path</title>
+  <link rel="icon" type="image/png" href="../assets/LOGO.png" />
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/profile.css">
+</head>
+<body>
+  <div id="edit-path-message-container" style="width:100%;display:flex;justify-content:center;align-items:center;"></div>
+  <main class="profile-container">
+    <div class="profile-left">
+      <div class="profile-image-circle">
+        <img id="path-image" src="../assets/ejemplo.jpg" alt="Path photo">
+      </div>
+      <button type="button" class="btn-edit-photo" id="edit-path-photo-btn">
+        <img src="../assets/edit.svg" alt="Edit" class="edit-icon"> EDIT PHOTO
+      </button>
+      <input type="file" id="path_photo_quick" name="path_photo" accept="image/*" style="display:none">
+    </div>
+    <div class="profile-right">
+      <h1 class="profile-title">Edit Path</h1>
+      <form class="profile-form" id="edit-path-form">
+        <div class="profile-form-row">
+          <div class="profile-form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name">
+          </div>
+          <div class="profile-form-group">
+            <label for="origin">Origin</label>
+            <input type="text" id="origin" name="origin">
+          </div>
+          <div class="profile-form-group">
+            <label for="end">Destination</label>
+            <input type="text" id="end" name="end">
+          </div>
+        </div>
+        <div class="profile-form-row">
+          <div class="profile-form-group">
+            <label for="difficulty">Difficulty</label>
+            <select id="difficulty" name="difficulty">
+              <option value="Easy">Easy</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Difficult">Difficult</option>
+            </select>
+          </div>
+          <div class="profile-form-group">
+            <label for="status">Status</label>
+            <select id="status" name="status">
+              <option value="Optimal">Optimal</option>
+              <option value="Sufficient">Sufficient</option>
+              <option value="Requires Maintenance">Requires Maintenance</option>
+            </select>
+          </div>
+          <div class="profile-form-group">
+            <label for="duration">Duration (hh:mm:ss)</label>
+            <input type="text" id="duration" name="duration" placeholder="hh:mm:ss">
+          </div>
+        </div>
+        <div class="profile-form-row">
+          <div class="profile-form-group">
+            <label for="distance">Distance (km)</label>
+            <input type="number" id="distance" name="distance" step="0.01">
+          </div>
+          <div class="profile-form-group">
+            <label for="elevation_gain">Elevation Gain (m)</label>
+            <input type="number" id="elevation_gain" name="elevation_gain" step="0.01">
+          </div>
+          <div class="profile-form-group">
+            <label for="average_velocity">Average Velocity (km/h)</label>
+            <input type="number" id="average_velocity" name="average_velocity" step="0.01">
+          </div>
+        </div>
+        <div class="profile-form-row">
+          <div class="profile-form-group wide">
+            <label for="route">Route Description</label>
+            <textarea id="route" name="route" rows="2"></textarea>
+          </div>
+        </div>
+        <div class="profile-form-row">
+          <div class="profile-form-group">
+            <label for="is_public">Is Public?</label>
+            <select id="is_public" name="is_public">
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="profile-save-btn"><span style="display:inline-block;vertical-align:middle;margin-right:8px;">💾</span> Save changes</button>
+      </form>
+      <div id="msg"></div>
+    </div>
+  </main>
+  <script src="../js/load-header.js"></script>
+  <script src="../js/load-user-area.js"></script>
+  <script src="../js/edit-path.js"></script>
+</body>
+</html>

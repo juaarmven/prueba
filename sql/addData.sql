@@ -1,27 +1,28 @@
+
 INSERT INTO User (id, user_type) VALUES
-('U001', 'Registered'),
-('U002', 'Registered'),
-('U003', 'Registered'),
-('U004', 'Guest'),
-('U005', 'Guest');
+(1, 'Registered'),
+(2, 'Registered'),
+(3, 'Registered'),
+(4, 'Guest'),
+(5, 'Guest');
 
 INSERT INTO RegisteredUser (id, name, last_name, age, location, profile_image, email, password, phone, username)
 VALUES
-('U001', 'Carlos', 'Martínez', 28, 'Madrid', NULL, 'carlos@example.com', 'pass123', 612345678, 'carlosm'),
-('U002', 'Lucía', 'Gómez', 31, 'Barcelona', NULL, 'lucia@example.com', 'lucia321', 698765432, 'luciag'),
-('U003', 'Marco', 'Rossi', 26, 'Milán', NULL, 'marco@example.com', 'marco777', 345678901, 'marcor');
+(1, 'Carlos', 'Martínez', 28, 'Madrid', NULL, 'carlos@example.com', 'pass123', 612345678, 'carlosm'),
+(2, 'Lucía', 'Gómez', 31, 'Barcelona', NULL, 'lucia@example.com', 'lucia321', 698765432, 'luciag'),
+(3, 'Marco', 'Rossi', 26, 'Milán', NULL, 'marco@example.com', 'marco777', 345678901, 'marcor');
 
 INSERT INTO GuestUser (id) VALUES
-('U004'),
-('U005');
+(4),
+(5);
 
 INSERT INTO Path (name, route, origin, end, difficulty, duration, distance, average_velocity, status, elevation_gain, is_public, date, path_photo, created_by)
 VALUES
-('Ruta del Bosque', '["Punto A","Punto B","Punto C"]', 'Calle Roble', 'Calle Pino', 'Easy', '01:30:00', 5.2, 3.4, 'Optimal', 120, TRUE, '2024-05-10 10:00:00', NULL, 'U001'),
+('Ruta del Bosque', '["Punto A","Punto B","Punto C"]', 'Calle Roble', 'Calle Pino', 'Easy', '01:30:00', 5.2, 3.4, 'Optimal', 120, TRUE, '2024-05-10 10:00:00', NULL, 1),
 
-('Sendero Montañoso', '["Inicio","Mirador","Cumbre"]', 'Av. Montaña', 'Pico Alto', 'Difficult', '03:45:00', 12.8, 3.1, 'Requires Maintenance', 850, FALSE, '2024-06-02 08:30:00', NULL, 'U002'),
+('Sendero Montañoso', '["Inicio","Mirador","Cumbre"]', 'Av. Montaña', 'Pico Alto', 'Difficult', '03:45:00', 12.8, 3.1, 'Requires Maintenance', 850, FALSE, '2024-06-02 08:30:00', NULL, 2),
 
-('Camino del Río', '["Puente","Ribera","Cascada"]', 'Calle Agua', 'Cascada Azul', 'Intermediate', '02:10:00', 7.4, 3.5, 'Sufficient', 300, TRUE, '2024-07:15 09:15:00', NULL, 'U003');
+('Camino del Río', '["Puente","Ribera","Cascada"]', 'Calle Agua', 'Cascada Azul', 'Intermediate', '02:10:00', 7.4, 3.5, 'Sufficient', 300, TRUE, '2024-07:15 09:15:00', NULL, 3);
 
 
 INSERT INTO Meteorology (climate, temperature, wind, path_id)

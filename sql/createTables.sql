@@ -65,6 +65,7 @@ CREATE TABLE Rating (
     score ENUM('1', '2', '3', '4', '5'),
     description TEXT,
     path_id INT,
+    user_id INT,
     FOREIGN KEY (path_id) REFERENCES Path(id),
     FOREIGN KEY (user_id) REFERENCES RegisteredUser(id)
 );

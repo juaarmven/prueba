@@ -6,6 +6,9 @@ const path = require('path');
 
 const app = express();
 
+// Solución global para BigInt en JSON
+BigInt.prototype.toJSON = function() { return this.toString(); };
+
 // Log global para depuración de peticiones
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
@@ -16,15 +19,15 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const pool = mariadb.createPool({
-  host: '127.0.0.1',
-  user: 'ProyectoSW2', // Cambia por tu usuario de MariaDB
-  password: 'ProyectoSW2', // Cambia por tu contraseña
-  database: 'bbp', // Cambia por el nombre de tu base de datos
+  host: process.env.DB_HOST || '127.0.0.1',
+  user: process.env.DB_USER || 'ProyectoSW2',
+  password: process.env.DB_PASSWORD || 'ProyectoSW2',
+  database: process.env.DB_DATABASE || 'bbp',
   connectionLimit: 5
 });
 
-// Mueve la importación y uso del router de usuario al principio, antes de los endpoints duplicados
-const userRoutes = require('./routes/user');
+// Importa el router de usuario y pásale el pool
+const userRoutes = require('./routes/user')(pool);
 app.use('/api', userRoutes);
 
 // Importa el router de rutas (Path) y pásale el pool
@@ -95,6 +98,13 @@ app.get('/rate-path', (req, res) => {
   res.sendFile(path.join(__dirname, './frontend/public/rate-path.html'));
 });
 
+app.get('/my-paths', (req, res) => {
+  res.sendFile(path.join(__dirname, './frontend/public/my-paths.html'));
+});
+
+app.get('/edit-path', (req, res) => {
+  res.sendFile(path.join(__dirname, './frontend/public/edit-path.html'));
+});
 
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
